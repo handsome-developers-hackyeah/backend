@@ -1,13 +1,11 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Comptee.DataAccess;
 using Comptee.Jwt;
 using Comptee.Middlewears;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -43,7 +41,7 @@ var builder = WebApplication.CreateBuilder(args);
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Comptee API",
+                Title = "handsomedevelopers API",
                 Version = "v1"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -100,11 +98,6 @@ builder.Services.AddAuthorization(config =>
     config.AddPolicy(JwtPolicies.User, JwtPolicies.UserPolicy());
 });
 
-
-builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration["ConnectionString"]!));
-
-builder.Services.AddScoped<DbContext, DataContext>();
-builder.Services.AddScoped<IUnitOfWork, DataContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IJwtAuth, JwtAuth>();
 builder.Services.Configure<string>(builder.Configuration);

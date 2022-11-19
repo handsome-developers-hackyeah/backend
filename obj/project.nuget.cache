@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "jHK1wvAUunknuIt03lFlZQSvATyiZWyb6esR9m84DRLVGJhwP+I53ixVgqnxiMzm0qcTiB4PLCM+KXM6kAu9TQ==",
+  "dgSpecHash": "BSueXgYsXzkj1QAwULbXmUnDaT1NUu0tLEMl2UHWQpK2dfqGi6QNN0ZSQl72wri+81qhkPOyJ72G+ih34ekJtQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Jabuszko\\Desktop\\Comptee\\Backend\\Comptee.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jabuszko\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
     "C:\\Users\\Jabuszko\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Jabuszko\\.nuget\\packages\\fluentvalidation\\11.3.0\\fluentvalidation.11.3.0.nupkg.sha512",
     "C:\\Users\\Jabuszko\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
@@ -71,16 +70,5 @@
     "C:\\Users\\Jabuszko\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
     "C:\\Users\\Jabuszko\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "BCrypt.Net",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }
