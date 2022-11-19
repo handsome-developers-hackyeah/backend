@@ -2,9 +2,9 @@ namespace Comptee.Middlewears.Models;
 
 public class ApiResponse
 {
-    public int StatusCode { get; private set; }
-    public object Data { get; private set; }
-    public Dictionary<string,string[]> Errors { get; private set; }
+    public int statusCode { get; private set; }
+    public object data { get; private set; }
+    public Dictionary<string,string[]> errors { get; private set; }
 
     public static ApiResponse Success(int statusCode, object data) => new(statusCode, data, null);
     public static ApiResponse Failure(int statusCode, Dictionary<string,string[]> errors) => new(statusCode, null, errors);
@@ -12,8 +12,8 @@ public class ApiResponse
 
     private ApiResponse(int statusCode, object data, Dictionary<string,string[]> errors)
     {
-        StatusCode = statusCode;
-        Data = data;
-        Errors = errors;
+        this.statusCode = statusCode;
+        this.data = data;
+        this.errors = errors;
     }
 }

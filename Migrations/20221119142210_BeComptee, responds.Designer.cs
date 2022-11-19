@@ -3,6 +3,7 @@ using System;
 using Comptee.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Comptee.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221119142210_BeComptee, responds")]
+    partial class BeCompteeresponds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +33,6 @@ namespace Comptee.Migrations
 
                     b.Property<int>("Amount")
                         .HasColumnType("integer");
-
-                    b.Property<DateTime?>("Date")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Localization")
                         .IsRequired()
@@ -92,9 +92,6 @@ namespace Comptee.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
-
-                    b.Property<int>("Rank")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Role")
                         .HasColumnType("text");

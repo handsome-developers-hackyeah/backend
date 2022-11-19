@@ -10,4 +10,7 @@ public class User : Entity
     public bool? HaveAvatar { get; set; }
     public bool? IsActive { get; set; }
     public string? Role { get; set; }
+    public int Rank { get; set; }
+    public ICollection<Respond> Responds { get; set; }
+    public ICollection<BeCompteeActivity> BeCompteeActivities { get; set; }
 }
