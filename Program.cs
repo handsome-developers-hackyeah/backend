@@ -2,7 +2,9 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Comptee.Jwt;
+using Comptee.Middlewears;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -100,6 +102,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IJwtAuth, JwtAuth>();
 builder.Services.Configure<string>(builder.Configuration);
 
+builder.Services.AddMediatR(typeof(Program));
+
 
 var app = builder.Build();
 
@@ -117,7 +121,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-//app.UseMiddleware<ExceptionHandler>();
+app.UseMiddleware<ExceptionHandler>();
 
 app.MapGet("/", () => "Hello World!");
 
