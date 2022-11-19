@@ -22,10 +22,17 @@ public class AuthController : ControllerBase
     [HttpGet("login")]
     public async Task<IActionResult> Login(string login, string password)
     {
-        var result = await _mediator.Send(new Login.Query(login, password));
+        var result = await _mediator.Send(new Login.LoginQuery(login, password));
         return new ObjectResult(ApiResponse.Success(200, result));
     }
 
+    [HttpPost("refreshToken")]
+    public async Task<IActionResult> RefreshToken()
+    {
+        var result = await _mediator.Send(new RefreshToken.RefreshTokenQuery(Guid.Parse(HttpContext.User.Claims.First(c => c.Type == "id").Value)));
+        return new ObjectResult(ApiResponse.Success(200, result));
+    }
+    
     [HttpPost("register")]
     public async Task<IActionResult> Register(Register.Command command)
     {

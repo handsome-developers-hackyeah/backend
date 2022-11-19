@@ -10,7 +10,7 @@ internal sealed class UserTypeConfig : IEntityTypeConfiguration<User>
     {
         builder.HasKey(c => c.Id);
 
-        builder.HasMany(c => c.BeCompteeActivities)
+        builder.HasMany(c => c.Posts)
             .WithOne(c => c.User)
             .HasForeignKey(c => c.UserId)
             .IsRequired(true)

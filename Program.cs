@@ -7,6 +7,7 @@ using Comptee.Middlewears;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -28,16 +29,19 @@ var builder = WebApplication.CreateBuilder(args);
             options.JsonSerializerOptions.WriteIndented = true;
         }).AddXmlDataContractSerializerFormatters();
 
-        builder.Services.AddMvc()
-            .AddJsonOptions(c =>
+        builder.Services.AddMvc().AddJsonOptions(c =>
             {
                 c.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 c.JsonSerializerOptions.MaxDepth = 32;
                 c.JsonSerializerOptions.PropertyNamingPolicy = null;
+                c.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                c.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                c.JsonSerializerOptions.WriteIndented = true;
             }).AddFluentValidation(c =>
             {
                 c.RegisterValidatorsFromAssemblies(new[] { typeof(Program).Assembly });
             });
+
 
         builder.Services.AddSwaggerGen(c =>
         {

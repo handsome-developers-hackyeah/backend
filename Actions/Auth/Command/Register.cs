@@ -10,21 +10,20 @@ namespace Comptee.Actions.Auth.Command;
 
 public static class Register
 {
-    public sealed record Command
-        (string Name, string Email, string Password, bool HaveAvatar, string Base64) : IRequest<Unit>;
+    public sealed record Command(string Name, string Email, string Password) : IRequest<GeneratedToken>;
 
-    public class Handler : IRequestHandler<Command, Unit>
+    public class Handler : IRequestHandler<Command, GeneratedToken>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly string _avatarPath;
+        private readonly IJwtAuth _jwtAuth;
 
-        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration)
+        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IJwtAuth jwtAuth)
         {
             _unitOfWork = unitOfWork;
-            _avatarPath = configuration["AvatarPath"]!;
+            _jwtAuth = jwtAuth;
         }
 
-        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<GeneratedToken> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await _unitOfWork.Users.GetByEmail(request.Email, cancellationToken);
             if (user is not null)
@@ -37,22 +36,21 @@ public static class Register
                 Email = request.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 Name = request.Name,
-                HaveAvatar = request.HaveAvatar,
+                HaveAvatar = false,
                 IsActive = false,
                 Role = JwtPolicies.User,
-                Id = Guid.NewGuid()
+                Id = Guid.NewGuid(),
+                City = "",
+                Rank = 0,
+                Region = "",
+                PlotSize = 0,
+                NumberOfResidents = 0
             };
-
-            if (request.HaveAvatar)
-            {
-                await File.WriteAllBytesAsync($"{_avatarPath}/{user.Id}.txt",
-                    Encoding.UTF8.GetBytes(request.Base64), cancellationToken);
-            }
 
             await _unitOfWork.Users.AddAsync(user, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
+            return await _jwtAuth.GenerateJwt(user);
         }
 
         public sealed class Validator : AbstractValidator<Command>
@@ -60,6 +58,8 @@ public static class Register
             public Validator()
             {
                 RuleFor(c => c.Name).MinimumLength(3);
+                RuleFor(c => c.Email).EmailAddress();
+                RuleFor(c => c.Password).MinimumLength(8);
             }
         }
     }
