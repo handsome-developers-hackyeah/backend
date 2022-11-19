@@ -80,3 +80,4 @@ C:\Users\Jabuszko\Desktop\Comptee\Backend\obj\Debug\net6.0\Comptee.dll
 C:\Users\Jabuszko\Desktop\Comptee\Backend\obj\Debug\net6.0\ref\Comptee.dll
 C:\Users\Jabuszko\Desktop\Comptee\Backend\obj\Debug\net6.0\Comptee.pdb
 C:\Users\Jabuszko\Desktop\Comptee\Backend\obj\Debug\net6.0\Comptee.genruntimeconfig.cache
+C:\Users\Jabuszko\Desktop\Comptee\Backend\bin\Debug\net6.0\BCrypt.Net.dll
