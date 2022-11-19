@@ -17,7 +17,7 @@ public static class ChangePhoto
         public Handler(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
-            _pathToImages = configuration["PathToImages"];
+            _pathToImages = configuration["PathToAvatars"];
         }
 
         public async Task<Unit> Handle(ChangePhotoCommand request, CancellationToken cancellationToken)

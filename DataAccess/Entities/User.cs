@@ -10,4 +10,15 @@ public class User : Entity
     public bool? HaveAvatar { get; set; }
     public bool? IsActive { get; set; }
     public string? Role { get; set; }
+    public string? City { get; set; }
+    public string? Region { get; set; }
+    public int Rank { get; set; }
+    public int PlotSize { get; set; }
+    public int NumberOfResidents { get; set; }
+    public ICollection<Respond> Responds { get; set; }
+    public ICollection<Post> Posts { get; set; }
+    public ICollection<ReportedPosts>? ReportedPosts { get; set; }
+    public ICollection<Comment>? Comments { get; set; }
+
+
 }

@@ -1,3 +1,4 @@
+using System.Data;
 using Comptee.DataAccess;
 using Comptee.DataAccess.Entities;
 using Comptee.Exceptions;
@@ -27,9 +28,9 @@ public static class UpdateUser
             {
                 throw new EntityNotFoundException($"user with id {request.User.Id} not found");
             }
-
             user.Name = request.User.Name ?? user.Name;
             user.Email = request.User.Email ?? user.Name;
+            
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
@@ -40,7 +41,7 @@ public static class UpdateUser
     {
         public Validator()
         {
-
+            RuleFor(c => c.User.Id).NotEqual(Guid.Empty);
         }
     }
 }

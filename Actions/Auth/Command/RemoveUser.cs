@@ -35,7 +35,8 @@ public static class RemoveUser
     {
         public Validator()
         {
-                
+            RuleFor(c => c.Id).NotEqual(Guid.Empty);
+
         }
     }
 }

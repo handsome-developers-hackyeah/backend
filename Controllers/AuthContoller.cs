@@ -19,14 +19,21 @@ public class AuthController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet("Login")]
+    [HttpGet("login")]
     public async Task<IActionResult> Login(string login, string password)
     {
-        var result = await _mediator.Send(new Login.Query(login, password));
+        var result = await _mediator.Send(new Login.LoginQuery(login, password));
         return new ObjectResult(ApiResponse.Success(200, result));
     }
 
-    [HttpPost("Register")]
+    [HttpPost("refreshToken")]
+    public async Task<IActionResult> RefreshToken()
+    {
+        var result = await _mediator.Send(new RefreshToken.RefreshTokenQuery(Guid.Parse(HttpContext.User.Claims.First(c => c.Type == "id").Value)));
+        return new ObjectResult(ApiResponse.Success(200, result));
+    }
+    
+    [HttpPost("register")]
     public async Task<IActionResult> Register(Register.Command command)
     {
         var result = await _mediator.Send(command);
@@ -34,7 +41,7 @@ public class AuthController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("User")]
+    [HttpPut("user")]
     public async Task<IActionResult> UpdateUser(UpdateUser.UpdateUserCommand command)
     {
         var result = await _mediator.Send(command);
@@ -42,7 +49,7 @@ public class AuthController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("User")]
+    [HttpDelete("user")]
     public async Task<IActionResult> RemoveUser()
     {
         var result =
@@ -52,7 +59,7 @@ public class AuthController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("ChangePhoto")]
+    [HttpPut("changePhoto")]
     public async Task<IActionResult> Feature(ChangePhoto.ChangePhotoCommand command)
     {
         var result = await _mediator.Send(command);
