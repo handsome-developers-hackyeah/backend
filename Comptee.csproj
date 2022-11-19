@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BCrypt.Net" Version="0.1.0" />
         <PackageReference Include="EntityFramework" Version="6.4.4" />
         <PackageReference Include="FluentValidation" Version="11.3.0" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
@@ -21,11 +22,6 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Actions" />
-      <Folder Include="Controllers" />
     </ItemGroup>
 
 </Project>
