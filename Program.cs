@@ -43,7 +43,7 @@ var builder = WebApplication.CreateBuilder(args);
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "handsomedevelopers API",
+                Title = "Comptee API",
                 Version = "v1"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
