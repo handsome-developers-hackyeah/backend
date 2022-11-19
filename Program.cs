@@ -104,7 +104,6 @@ builder.Services.Configure<string>(builder.Configuration);
 
 builder.Services.AddMediatR(typeof(Program));
 
-
 var app = builder.Build();
 
 app.UseSwaggerUI();
