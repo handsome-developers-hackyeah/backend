@@ -6,7 +6,7 @@ public interface IBaseRepository<TEntity> where TEntity : Entity
 {
     Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
     void Update(TEntity entity);
-    ValueTask<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    ValueTask<TEntity?> GetByIdAsync(Guid? id, CancellationToken cancellationToken = default);
     IQueryable<TEntity> GetQueryable();
     Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
     void RemoveById(Guid id);

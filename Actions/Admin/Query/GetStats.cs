@@ -19,9 +19,18 @@ public static class GetStats
 
         public async Task<StatsObject> Handle(Query request, CancellationToken cancellationToken)
         {
+            var data = await _unitOfWork.Post.GetAllAsync(cancellationToken);
+            int sumOfComptee = data.Sum(c => c.Amount);
+            
+            int usersCount = (await _unitOfWork.Users.GetAllAsync(cancellationToken)).Count;
+            int postCount = (await _unitOfWork.Post.GetAllAsync(cancellationToken)).Count;
+            
             return new StatsObject()
             {
-                
+                CompostSum = sumOfComptee,
+                UsersSum = usersCount,
+                PostCount = postCount,
+                CompostAverage = sumOfComptee+1 / usersCount+1,
             };
         }
     }

@@ -2,7 +2,7 @@ using Comptee.DataAccess.Entities;
 using Comptee.DataAccess.Repositories.BaseRepository;
 using Comptee.DTO;
 
-namespace Comptee.DataAccess.Repositories.RespondRepository;
+namespace Comptee.DataAccess.Repositories.PostRepository;
 
 public interface IPostRepository : IBaseRepository<Post>
 {

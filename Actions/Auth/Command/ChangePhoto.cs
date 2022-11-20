@@ -31,11 +31,11 @@ public static class ChangePhoto
             user.HaveAvatar = true;
             try
             {
-                await File.WriteAllTextAsync(_pathToAvatars + @"/" + request.Id + ".txt", request.Base64, cancellationToken);
+                await File.WriteAllBytesAsync(_pathToAvatars + @"/" + request.Id + ".txt", Convert.FromBase64String(request.Base64), cancellationToken);
             }
             catch (Exception e)
             {
-                await File.WriteAllTextAsync($@"/{request.Id}", request.Base64, cancellationToken);
+                await File.WriteAllBytesAsync($@"/{request.Id}", Convert.FromBase64String(request.Base64), cancellationToken);
             }
 
             _unitOfWork.Users.Update(user);
