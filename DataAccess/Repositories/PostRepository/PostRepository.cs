@@ -1,6 +1,5 @@
 using Comptee.DataAccess.Entities;
 using Comptee.DataAccess.Repositories.BaseRepository;
-using Comptee.DataAccess.Repositories.RespondRepository;
 using Comptee.DTO;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +7,7 @@ namespace Comptee.DataAccess.Repositories.PostRepository;
 
 internal sealed class PostRepository : BaseRepository<Post>, IPostRepository
 {
+
     public PostRepository(DbSet<Post>? entities) : base(entities)
     {
     }
@@ -17,7 +17,7 @@ internal sealed class PostRepository : BaseRepository<Post>, IPostRepository
         return _entities
             .AsQueryable()?
             //.Where(c => c.User.City == city)
-            .OrderBy(c => c.Date)
+            .OrderByDescending(c => c.Date)
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .Select(c => new PostDTO
@@ -28,7 +28,10 @@ internal sealed class PostRepository : BaseRepository<Post>, IPostRepository
                 User = c.User,
                 RespondCount = c.Responds.Count,
                 Date = DateTime.Parse(c.Date),
-                Comments = c.Comments
+                Comments = c.Comments,
+                Responds = c.Responds,
+                AlreadyFollow = false,
+                UserId = c.UserId
             })
             .ToListAsync(cancellationToken);
     }

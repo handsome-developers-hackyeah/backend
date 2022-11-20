@@ -11,5 +11,7 @@ public class PostDTO
     public int Amount { get; set; }
     public DateTime? Date { get; set; }
     public int RespondCount { get; set; }
+    public bool AlreadyFollow { get; set; }
     public ICollection<Comment>? Comments { get; set; }
+    public ICollection<Respond>? Responds { get; set; }
 }

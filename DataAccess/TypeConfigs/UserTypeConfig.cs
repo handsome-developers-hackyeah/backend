@@ -20,6 +20,13 @@ internal sealed class UserTypeConfig : IEntityTypeConfiguration<User>
             .WithOne(c => c.User)
             .HasForeignKey(c => c.UserId)
             .IsRequired(true)
+            .OnDelete(DeleteBehavior.Cascade);    
+        
+        
+        builder.HasOne(c => c.Rank)
+            .WithMany(c => c.Users)
+            .HasForeignKey(c => c.RankId)
+            .IsRequired(true)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

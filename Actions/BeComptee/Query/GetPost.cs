@@ -32,6 +32,15 @@ public static class GetPost
             }
             
             var result = await _unitOfWork.Post.GetByCity(user.City!, request.Page, 10, cancellationToken);
+
+            foreach (var post in result)
+            {
+                if (post.Responds.Any(c => c.User.Id == user.Id))
+                {
+                    post.AlreadyFollow = true;
+                }
+            }
+            
             return result;        
         }
     }

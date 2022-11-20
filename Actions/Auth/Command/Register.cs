@@ -31,6 +31,8 @@ public static class Register
                 throw new InvalidRequestException($"user with email {request.Email} already exists");
             }
 
+            Ranks? defaultRank = await _unitOfWork.Ranks.GetDefaultRank(cancellationToken);
+            
             user = new User
             {
                 Email = request.Email,
@@ -41,12 +43,13 @@ public static class Register
                 Role = JwtPolicies.User,
                 Id = Guid.NewGuid(),
                 City = "",
-                Rank = 0,
+                Rank = defaultRank,
                 IsBan = false,
                 BanedPost = 0,
                 Region = "",
                 PlotSize = 0,
-                NumberOfResidents = 0
+                NumberOfResidents = 0,
+                LikeSum = 0
             };
 
             await _unitOfWork.Users.AddAsync(user, cancellationToken);

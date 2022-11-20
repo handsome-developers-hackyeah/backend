@@ -33,8 +33,21 @@ public static class Respond
             var existRespond = await _unitOfWork.Responds.GetByRelation(request.PostId, request.UserId, cancellationToken);
             if (existRespond is not null)
             {
-                throw new InvalidRequestException("Respond is not exist");
+                throw new InvalidRequestException("Respond is exist");
             }
+
+            user.LikeSum += 1;
+
+            _unitOfWork.Users.Update(user);
+
+            var nextRang = await _unitOfWork.Ranks.IsNextLevel(user.LikeSum, cancellationToken);
+            if (nextRang is not null)
+            {
+                user.Rank = nextRang;
+                user.Rank.Id = nextRang.Id;
+            }
+            
+            _unitOfWork.Users.Update(user);
 
             await _unitOfWork.Responds.AddAsync(new DataAccess.Entities.Respond()
             {

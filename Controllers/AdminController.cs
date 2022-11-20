@@ -25,7 +25,17 @@ public class AdminController : ControllerBase
     {
         var result = await _mediator.Send(new GetReportedPosts.Query(pageNumber));
         return Ok(result);
-    }    
+    }
+    
+    [AllowAnonymous]
+    [HttpPost("addRank")]
+    public async Task<IActionResult> AddRank(AddRank.AddRanksCommand addRanksCommand)
+    {
+        var result = await _mediator.Send(addRanksCommand);
+        return Ok(result);
+    }   
+    
+    [AllowAnonymous]
     [HttpGet("getStats")]
     public async Task<IActionResult> GetStats()
     {

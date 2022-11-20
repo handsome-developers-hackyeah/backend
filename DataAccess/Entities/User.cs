@@ -12,11 +12,13 @@ public class User : Entity
     public string? Role { get; set; }
     public string? City { get; set; }
     public string? Region { get; set; }
-    public int? Rank { get; set; }
     public int? PlotSize { get; set; }
     public int? NumberOfResidents { get; set; }
     public int? BanedPost { get; set; }
     public bool? IsBan { get; set; }
+    public int? LikeSum { get; set; }
+    public Guid? RankId { get; set; }
+    public Ranks? Rank { get; set; }
     public ICollection<Respond>? Responds { get; set; }
     public ICollection<Post>? Posts { get; set; }
     public ICollection<ReportedPosts>? ReportedPosts { get; set; }

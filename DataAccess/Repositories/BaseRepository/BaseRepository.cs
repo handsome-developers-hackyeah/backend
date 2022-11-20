@@ -32,7 +32,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return _entities.ToListAsync(cancellationToken);
     }
 
-    public ValueTask<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public ValueTask<TEntity?> GetByIdAsync(Guid? id, CancellationToken cancellationToken = default)
     {
         return _entities.FindAsync(new object[] {id}, cancellationToken);
     }

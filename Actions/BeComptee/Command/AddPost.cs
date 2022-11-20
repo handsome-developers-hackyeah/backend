@@ -23,6 +23,7 @@ public static class AddBeComptee
 
         public async Task<Unit> Handle(AddPostCommand request, CancellationToken cancellationToken)
         {
+            Guid postId = Guid.NewGuid();
             var user = await _unitOfWork.Users.GetByIdAsync(request.UserId, cancellationToken);
             if (user is null)
             {
@@ -30,17 +31,19 @@ public static class AddBeComptee
             }
             try
             {
-                await File.WriteAllTextAsync( _pathToImages + @"/" + user.Id + ".txt", request.Photo, cancellationToken);
+                await File.WriteAllBytesAsync(_pathToImages + @"/" + postId + ".txt", Convert.FromBase64String(request.Photo), cancellationToken);
+
             }
             catch (Exception e)
-            {
-                await File.WriteAllTextAsync($@"/{user.Id}", request.Photo, cancellationToken);
+            {                
+                await File.WriteAllBytesAsync($@"/{postId}", Convert.FromBase64String(request.Photo), cancellationToken);
             }
 
             string date = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             
             await _unitOfWork.Post.AddAsync(new Post
             {
+                Id = postId,
                 Amount = request.Ammount,
                 Date =  date,
                 Localization = request.Localization,
