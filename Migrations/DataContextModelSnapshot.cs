@@ -76,6 +76,26 @@ namespace Comptee.Migrations
                     b.ToTable("_Post");
                 });
 
+            modelBuilder.Entity("Comptee.DataAccess.Entities.Ranks", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("_Ranks");
+                });
+
             modelBuilder.Entity("Comptee.DataAccess.Entities.ReportedPosts", b =>
                 {
                     b.Property<Guid>("Id")
@@ -148,6 +168,9 @@ namespace Comptee.Migrations
                     b.Property<bool?>("IsBan")
                         .HasColumnType("boolean");
 
+                    b.Property<int?>("LikeSum")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -160,8 +183,8 @@ namespace Comptee.Migrations
                     b.Property<int?>("PlotSize")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Rank")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("RankId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Region")
                         .HasColumnType("text");
@@ -170,6 +193,8 @@ namespace Comptee.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RankId");
 
                     b.ToTable("_Users");
                 });
@@ -242,6 +267,17 @@ namespace Comptee.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Comptee.DataAccess.Entities.User", b =>
+                {
+                    b.HasOne("Comptee.DataAccess.Entities.Ranks", "Rank")
+                        .WithMany("Users")
+                        .HasForeignKey("RankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rank");
+                });
+
             modelBuilder.Entity("Comptee.DataAccess.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
@@ -249,6 +285,11 @@ namespace Comptee.Migrations
                     b.Navigation("ReportedPosts");
 
                     b.Navigation("Responds");
+                });
+
+            modelBuilder.Entity("Comptee.DataAccess.Entities.Ranks", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Comptee.DataAccess.Entities.User", b =>

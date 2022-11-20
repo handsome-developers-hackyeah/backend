@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Comptee.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class INIT : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "_Ranks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Points = table.Column<int>(type: "integer", nullable: false),
+                    Number = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Ranks", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "_Users",
                 columns: table => new
@@ -24,15 +38,22 @@ namespace Comptee.Migrations
                     Role = table.Column<string>(type: "text", nullable: true),
                     City = table.Column<string>(type: "text", nullable: true),
                     Region = table.Column<string>(type: "text", nullable: true),
-                    Rank = table.Column<int>(type: "integer", nullable: true),
                     PlotSize = table.Column<int>(type: "integer", nullable: true),
                     NumberOfResidents = table.Column<int>(type: "integer", nullable: true),
                     BanedPost = table.Column<int>(type: "integer", nullable: true),
-                    IsBan = table.Column<bool>(type: "boolean", nullable: true)
+                    IsBan = table.Column<bool>(type: "boolean", nullable: true),
+                    LikeSum = table.Column<int>(type: "integer", nullable: true),
+                    RankId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK__Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK__Users__Ranks_RankId",
+                        column: x => x.RankId,
+                        principalTable: "_Ranks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +190,11 @@ namespace Comptee.Migrations
                 name: "IX__Responds_UserId",
                 table: "_Responds",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX__Users_RankId",
+                table: "_Users",
+                column: "RankId");
         }
 
         /// <inheritdoc />
@@ -188,6 +214,9 @@ namespace Comptee.Migrations
 
             migrationBuilder.DropTable(
                 name: "_Users");
+
+            migrationBuilder.DropTable(
+                name: "_Ranks");
         }
     }
 }
