@@ -6,3 +6,4 @@ public interface IJwtAuth
 {
     public Task<GeneratedToken> GenerateJwt(User user);
 }
+ 

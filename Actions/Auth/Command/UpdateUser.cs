@@ -30,7 +30,11 @@ public static class UpdateUser
             }
             user.Name = request.User.Name ?? user.Name;
             user.Email = request.User.Email ?? user.Name;
-            
+            user.City = request.User.City ?? user.City;
+            user.Region = request.User.Region ?? user.Region;
+            user.PlotSize = request.User.PlotSize ?? user.PlotSize;
+            user.NumberOfResidents = request.User.NumberOfResidents ?? user.NumberOfResidents;
+
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;

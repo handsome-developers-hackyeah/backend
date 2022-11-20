@@ -30,7 +30,7 @@ public static class AddBeComptee
             }
             try
             {
-                await File.WriteAllTextAsync( _pathToImages+ user.Id, request.Photo, cancellationToken);
+                await File.WriteAllTextAsync( _pathToImages + @"/" + user.Id + ".txt", request.Photo, cancellationToken);
             }
             catch (Exception e)
             {

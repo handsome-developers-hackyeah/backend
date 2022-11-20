@@ -29,7 +29,7 @@ public class JwtAuth : IJwtAuth
                 new Claim("email", user.Email),
                 new Claim("name", user.Name),
                 new Claim("haveAvatar", user.HaveAvatar.ToString()),
-                new Claim(ClaimTypes.Role, JwtPolicies.User)
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             }),
             Expires = DateTime.UtcNow.AddDays(int.Parse(_configuration["Jwt:ExpireDays"])),
             Audience = _configuration["Jwt:Audience"]!,
@@ -43,3 +43,4 @@ public class JwtAuth : IJwtAuth
         return Task.FromResult(new GeneratedToken(tokenHandler.WriteToken(token)));
     }
 }
+
