@@ -42,6 +42,8 @@ public static class Register
                 Id = Guid.NewGuid(),
                 City = "",
                 Rank = 0,
+                IsBan = false,
+                BanedPost = 0,
                 Region = "",
                 PlotSize = 0,
                 NumberOfResidents = 0

@@ -1,6 +1,7 @@
 using Comptee.DataAccess.Entities;
 using Comptee.DataAccess.Repositories.BaseRepository;
 using Comptee.DataAccess.Repositories.PostRepository;
+using Comptee.DataAccess.Repositories.ReportedPostRepository;
 using Comptee.DataAccess.Repositories.RespondRepository;
 using Comptee.DataAccess.Repositories.UserRepository;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ public class DataContext : DbContext, IUnitOfWork
     public IRespondRepository Responds => new RespondRepository(_Responds); 
     
     private DbSet<ReportedPosts>? _ReportedPost { get; set; }
-    public IBaseRepository<ReportedPosts> ReportedPost => new BaseRepository<ReportedPosts>(_ReportedPost);    
+    public IReportedPostRepository ReportedPost => new ReportedPostRepository(_ReportedPost);    
     
     private DbSet<Comment>? _Comment { get; set; }
     public IBaseRepository<Comment> Comment => new BaseRepository<Comment>(_Comment);

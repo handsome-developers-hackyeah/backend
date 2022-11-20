@@ -25,13 +25,17 @@ internal sealed class PostRepository : BaseRepository<Post>, IPostRepository
                 Amount = c.Amount,
                 Id = c.Id,
                 Localization = c.Localization,
-                User =c.User,
-                UserId = c.UserId,
+                User = c.User,
                 RespondCount = c.Responds.Count,
                 Date = DateTime.Parse(c.Date),
                 Comments = c.Comments
             })
             .ToListAsync(cancellationToken);
+    }
+
+    public User? GetUser(Guid Id)
+    {
+        return _entities.FirstOrDefault(c => c.Id == c.Id).User;
     }
 
     // public Task<List<PostDTO>> GetByRegion(string region, int pageNumber, int pageSize, CancellationToken cancellationToken =default)

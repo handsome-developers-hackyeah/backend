@@ -22,6 +22,11 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return _entities.AnyAsync(c => c.Id == id, cancellationToken);
     }
 
+    public Task<List<TEntity>> GetPage(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+    {
+        return _entities.OrderBy(c => c.Id).Skip((pageNumber) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+    }
+
     public Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return _entities.ToListAsync(cancellationToken);

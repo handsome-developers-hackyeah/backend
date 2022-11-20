@@ -46,7 +46,8 @@ public class AuthController : ControllerBase
     {
         var result = await _mediator.Send(command);
         return new ObjectResult(ApiResponse.Success(200, result));
-    }
+    }   
+    
 
     [Authorize]
     [HttpDelete("user")]
@@ -57,7 +58,14 @@ public class AuthController : ControllerBase
                 new RemoveUser.RemoveUserCommand(Guid.Parse(HttpContext.User.Claims.First(c => c.Type == "id").Value)));
         return new ObjectResult(ApiResponse.Success(200, result));
     }
-
+    
+    [Authorize]
+    [HttpGet("user")]
+    public async Task<IActionResult> GetUser()
+    {
+        var result = await _mediator.Send(new GetUser.GetUserQuery(Guid.Parse(HttpContext.User.Claims.First(c => c.Type == "id").Value)));
+        return new ObjectResult(ApiResponse.Success(200, result));
+    }
     [Authorize]
     [HttpPut("changePhoto")]
     public async Task<IActionResult> Feature(ChangePhoto.ChangePhotoCommand command)
@@ -65,4 +73,5 @@ public class AuthController : ControllerBase
         var result = await _mediator.Send(command);
         return new ObjectResult(ApiResponse.Success(200, result));
     }
+
 }    

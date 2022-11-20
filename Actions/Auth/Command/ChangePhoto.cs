@@ -12,12 +12,12 @@ public static class ChangePhoto
     public class Handler : IRequestHandler<ChangePhotoCommand, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly string? _pathToImages;
+        private readonly string? _pathToAvatars;
 
         public Handler(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
-            _pathToImages = configuration["PathToAvatars"];
+            _pathToAvatars = configuration["PathToAvatars"];
         }
 
         public async Task<Unit> Handle(ChangePhotoCommand request, CancellationToken cancellationToken)
@@ -31,7 +31,7 @@ public static class ChangePhoto
             user.HaveAvatar = true;
             try
             {
-                await File.WriteAllTextAsync(_pathToImages + request.Id, request.Base64, cancellationToken);
+                await File.WriteAllTextAsync(_pathToAvatars + @"/" + request.Id + ".txt", request.Base64, cancellationToken);
             }
             catch (Exception e)
             {
